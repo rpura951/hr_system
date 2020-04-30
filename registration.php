@@ -68,16 +68,24 @@
         }
         else
         {
-            $add_query = "INSERT INTO emp_data VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $db->prepare($add_query);
-            $stmt->bind_param('ssssss', $fname, $lname, $phone, $addr, $un, $ssn);
-            $stmt->execute();
-            $add_query = "INSERT INTO emp_credentials VALUES (?, ?)";
-            $stmt = $db->prepare($add_query);
-            $stmt->bind_param("ss", $un, $pw);
-            $stmt->execute();
-            $stmt->close();
-            echo("User added");
+            $add_query = "INSERT INTO emp_data (fname, lname, phone_number, address, username, ssn) VALUES ('$fname', '$lname', '$phone', '$addr', '$un', '$ssn')";
+            if(!mysqli_query($db, $add_query))
+            {
+                echo("Unable to add users");
+            }
+            else
+            {
+                echo("User added to emp_data table</br>");
+            }
+            $add_query = "INSERT INTO emp_credentials (username, password) VALUES ('$un', '$pw')";
+            if(!mysqli_query($db, $add_query))
+            {
+                echo("Username and password not created");
+            }
+            else
+            {
+                echo("User added to emp_credentials table</br>");
+            }
         }
     }
 ?>
