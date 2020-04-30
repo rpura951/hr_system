@@ -1,44 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>User Registration</title>
-    </head>
-    <body>
-        <form method="post" enctype="multipart.form-data">
-            <table style="border: 70px;">
-                <tr>
-                    <td sytle="width100px; text-align:left;">First Name</td>
-                    <td><input type="text" name="fname" required size="20" maxlength="20" /></td>
-                </tr>
-                <tr>
-                    <td sytle="width100px; text-align:left;">Last Name</td>
-                    <td><input type="text" name="lname" required size="20" maxlength="20" /></td>
-                </tr>
-                    <td sytle="width100px; text-align:left;">Address</td>
-                    <td><input type="text" name="address" required size="20" /></td>
-                </tr>
-                    <td sytle="width100px; text-align:left;">Phone Number</td>
-                    <td><input type="text" name="phone" required size="20" maxlength="20" /></td>
-                </tr>
-                    <td sytle="width100px; text-align:left;">Username</td>
-                    <td><input type="text" name="username" required size="20" maxlength="20" /></td>
-                </tr>
-                <tr>
-                    <td sytle="width100px; text-align:left;">Temporary Password</td>
-                    <td><input type="text" name="tempPwd" required size="20" maxlength="20" /></td>
-                </tr>
-                <tr>
-                    <td sytle="width100px; text-align:left;">SSN</td>
-                    <td><input type="text" name="ssn" required size="20" maxlength="9" /></td>
-                </tr>
-                <tr>
-                    <td><button type="submit" name="Create">Create User</button></td>
-                </tr>
-
-    </body>
-</html>
-
 <?php
     if(isset($_POST['Create']))
     {
@@ -50,6 +9,7 @@
         $ssn = $_POST['ssn'];
         $phone = $_POST['phone'];
 
+        echo($fname);
         $db = mysqli_connect("localhost", "root", "", "hr_system");
         if(mysqli_connect_errno())
         {
@@ -65,13 +25,17 @@
         if(mysqli_num_rows($result) > 0)
         {
             echo("Username already found");
+            header("Location: http://localhost/hr_system/login.html");
+            exit();
         }
         else
         {
             $add_query = "INSERT INTO emp_data (fname, lname, phone_number, address, username, ssn) VALUES ('$fname', '$lname', '$phone', '$addr', '$un', '$ssn')";
+            echo($add_query);
+            echo("</br>");
             if(!mysqli_query($db, $add_query))
             {
-                echo("Unable to add users");
+                echo("Unable to add users</br>");
             }
             else
             {
@@ -80,11 +44,13 @@
             $add_query = "INSERT INTO emp_credentials (username, password) VALUES ('$un', '$pw')";
             if(!mysqli_query($db, $add_query))
             {
-                echo("Username and password not created");
+                echo("Username and password not created</br>");
             }
             else
             {
                 echo("User added to emp_credentials table</br>");
+                header("Location: https://www.google.com");
+                exit();
             }
         }
     }
