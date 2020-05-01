@@ -7,16 +7,16 @@
         $lname = $_POST['lname'];
         $addr = $_POST['address'];
         $un = $_POST['username'];
-        if (!verify_pw($_POST['tempPwd']))
+        if (!validate_pw($_POST['tempPwd']))
         {
             echo("Password does not meet proper requirements");
         }
         else
         {
-            $pw = $_POST['tempPwd'];
+            $pw = password_hash($_POST['tempPwd'], PASSWORD_DEFAULT);
         }
         
-        if (!verify_ssn($_POST['ssn']))
+        if (!validate_ssn($_POST['ssn']))
         {
             echo("SSN not valid");
         }
@@ -25,7 +25,7 @@
             $ssn = $_POST['ssn'];
         }
 
-        if (!verify_phone($_POST['phone']))
+        if (!validate_phone($_POST['phone']))
         {
             echo("Phone number not valid");
         }
