@@ -25,7 +25,7 @@
         if(mysqli_num_rows($result) > 0)
         {
             echo("Username already found");
-            header("Location: http://localhost/hr_system/login.html");
+            header("Location: http://localhost/hr_system/registration.html");
             exit();
         }
         else
