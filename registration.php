@@ -1,14 +1,39 @@
 <?php
+    include 'verification.php';
+
     if(isset($_POST['Create']))
     {
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
         $addr = $_POST['address'];
         $un = $_POST['username'];
-        $pw = $_POST['tempPwd'];
-        $ssn = $_POST['ssn'];
-        $phone = $_POST['phone'];
+        if (!verify_pw($_POST['tempPwd']))
+        {
+            echo("Password does not meet proper requirements");
+        }
+        else
+        {
+            $pw = $_POST['tempPwd'];
+        }
+        
+        if (!verify_ssn($_POST['ssn']))
+        {
+            echo("SSN not valid");
+        }
+        else
+        {
+            $ssn = $_POST['ssn'];
+        }
 
+        if (!verify_phone($_POST['phone']))
+        {
+            echo("Phone number not valid");
+        }
+        else
+        {
+            $phone = $_POST['phone'];
+        }
+        
         echo($fname);
         $db = mysqli_connect("localhost", "root", "", "hr_system");
         if(mysqli_connect_errno())
@@ -49,7 +74,7 @@
             else
             {
                 echo("User added to emp_credentials table</br>");
-                header("Location: https://www.google.com");
+                header("Location: http://localhost/hr_system/main_page.html");
                 exit();
             }
         }
