@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 28, 2020 at 12:30 AM
+-- Generation Time: May 01, 2020 at 07:34 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `emp_credentials` (
 --
 
 INSERT INTO `emp_credentials` (`username`, `password`) VALUES
-('rpura', 'Blue123');
+('rpura', 'Blue123'),
+('MLi', 'Faclon!16');
 
 --
 -- Constraints for dumped tables
