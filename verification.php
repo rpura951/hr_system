@@ -2,7 +2,7 @@
 
 function validate_ssn($ssn)
 {
-    if(!preg_match("[0-9]{9}"))
+    if(!preg_match("/[0-9]{9}/",$ssn))
     {
         return false;
     }
@@ -11,16 +11,16 @@ function validate_ssn($ssn)
 
 function validate_phone($phone)
 {
-    if(!preg_match("[0-9]{10}"))
+    if(!preg_match("/[0-9]{10}/",$phone))
     {
         return false;
     }
     return true;
 }
 
-function verify_pw($pw)
+function validate_pw($pw)
 {
-    if(!preg_match("[a-zA-Z0-9]{6,}"))
+    if(!preg_match("/[a-zA-Z0-9]{6,}/",$pw))
     {
         return false;
     }
