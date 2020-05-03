@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $db = mysqli_connect("localhost", "root", "", "hr_system");
 
@@ -15,13 +16,23 @@ if(isset($_POST['verify']))
         $result = $result->fetch_assoc();
         if (password_verify($password, $result['password']))
         {
-            echo("It worked");
-            header("Location: http://localhost/hr_system/main_page.html");
+            $query = "SELECT * FROM emp_data WHERE username = '$username'";
+            $result = $db->query($query);
+            $result = $result->fetch_assoc();
+            $_SESSION['fname'] = $result['fname'];
+            header("Location: http://localhost/hr_system/main_page.php");
+            // echo('<script language="javascript">');
+            // echo('alert("Login Successful");
+            // window.location.href="http://localhost/hr_system/main_page.html"');
+            // echo('</script>');
         }
-        else
-        {
-            echo("You suck");
-        }
+    }
+    else
+    {
+        echo('<script language="javascript">');
+        echo('alert("Login Failed. Please Try Again.");
+        window.location.href="http://localhost/hr_system/login.html"');
+        echo('</script>');
     }
 }
 
