@@ -1,9 +1,9 @@
 $(document).on('ready', function()
 {
-    $.get('main_page.php', function(data)
+    $.get('main_page.php', {'f_name': fname, 'isAdmin': admin}, function(data)
         {
             var admin = sessionStorage.getItem('isAdmin');
-
+            alert("I'm here at least");
             console.log(admin);
 
             if(!admin)
@@ -12,6 +12,4 @@ $(document).on('ready', function()
             }
         }
     )
-
-    
 });
