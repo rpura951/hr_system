@@ -20,8 +20,9 @@ function validate_phone($phone)
 
 function validate_pw($pw)
 {
-    if(!preg_match("/[a-zA-Z0-9]{6,}/",$pw))
+    if(!preg_match("/[a-zA-Z0-9!@#$%^&*]{6,}/",$pw))
     {
+        echo($pw);
         return false;
     }
     return true;
