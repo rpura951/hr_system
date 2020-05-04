@@ -1,10 +1,8 @@
 <?php
 session_start();
 
+//Testing session data
 $name = $_SESSION['fname'];
-$greeting = array($name, $_SESSION['isAdmin']);
-
-print json_encode($greeting);
 
 ?>
 

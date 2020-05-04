@@ -3,7 +3,7 @@ session_start();
 
 $db = mysqli_connect("localhost", "root", "", "hr_system");
 
-
+//Checks if login is clicked.
 if(isset($_POST['verify']))
 {
     $username = $_POST['emp_id'];
@@ -11,6 +11,7 @@ if(isset($_POST['verify']))
     $query = "SELECT username, password FROM emp_credentials WHERE username = '$username'";
     $result = $db->query($query);
 
+    //Checks if there is is a username that matches
     if ($result->num_rows > 0)
     {
         $result = $result->fetch_assoc();
@@ -19,9 +20,13 @@ if(isset($_POST['verify']))
             $query = "SELECT * FROM emp_data WHERE username = '$username'";
             $result = $db->query($query);
             $result = $result->fetch_assoc();
+
+            //Stores data from query to session
             $_SESSION['fname'] = $result['fname'];
             $_SESSION['isAdmin'] = $result['isAdmin'];
             $_SESSION['username'] = $result['username'];
+
+            //Checks if user is admin.
             if($_SESSION['isAdmin'] == 1)
             {
                 header("Location: admin.php");
@@ -30,6 +35,8 @@ if(isset($_POST['verify']))
             {
                 header("Location: http://localhost/hr_system/main_page.php");
             }
+
+            //Test code to check alerts. Ignore.
             //echo($_SESSION['fname']);
             // echo('<script language="javascript">');
             // echo('alert("Login Successful");

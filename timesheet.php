@@ -2,13 +2,21 @@
 session_start();
 
 $db = mysqli_connect("localhost", "root", "", "hr_system");
+
+//Takes username from session for the query
 //$un = $_SESSION['username'];
-$un = "rpura";
+
+//Test case for timesheet
+$un = "rpura"; 
+
+//Need to add today's date to query
 $chk_date = "SELECT * FROM timeclock WHERE username = '$un'";
 $result = $db->query($chk_date);
 
+//Checks if there are any returns
 if($result->num_rows > 0)
 {
+    //Stores data to display on page
     $result = $result->fetch_assoc();
     $_SESSION['date'] = $result['date'];
     $_SESSION['clockin'] = $clockin = $result['clockin'];
@@ -16,7 +24,7 @@ if($result->num_rows > 0)
     $_SESSION['lunchin'] = $lunchin = $result['lunchin'];
     $_SESSION['clockout'] = $clockout = $result['clockout'];
 }
-else
+else //If there isn't a match, it sets all text to ""
 {
     $clockin = "";
     $lunchout = "";

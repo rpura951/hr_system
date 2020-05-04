@@ -2,20 +2,24 @@
     include 'validation_fns.php';
     session_start();
 
+    //Checks if user is not an admin. If not, they will be rerouted.
     if ($_SESSION['isAdmin'] == 0)
     {
         echo('<script language="javascript">');
-        echo('alert("admin");
+        echo('alert("You require administrator priveleges to view this page.");
         window.location.href="http://localhost/hr_system/main_page.html"');
         echo('</script>');
     }
 
+    //Registers user
     if(isset($_POST['Create']))
     {
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
         $addr = $_POST['address'];
         $un = $_POST['username'];
+
+        //Password validation
         if (!validate_pw($_POST['tempPwd']))
         {
             echo("Password does not meet proper requirements");
@@ -27,6 +31,7 @@
             $pw = password_hash($_POST['tempPwd'], PASSWORD_DEFAULT);
         }
         
+        //SSN Validation
         if (!validate_ssn($_POST['ssn']))
         {
             echo("SSN not valid");
@@ -37,6 +42,7 @@
             $ssn = $_POST['ssn'];
         }
 
+        //Phone number validation
         if (!validate_phone($_POST['phone']))
         {
             echo("Phone number not valid");
@@ -47,7 +53,6 @@
             $phone = $_POST['phone'];
         }
         
-        echo($fname);
         $db = mysqli_connect("localhost", "root", "", "hr_system");
         if(mysqli_connect_errno())
         {
@@ -58,6 +63,7 @@
             echo "<p>Connection Successful</p>";
         }
 
+        //Query to check if a username already matches
         $check_query = "SELECT username FROM emp_credentials WHERE username = '$un'";
         $result = mysqli_query($db, $check_query);
         if(mysqli_num_rows($result) > 0)
@@ -66,7 +72,7 @@
             header("Location: http://localhost/hr_system/registration.php");
             exit();
         }
-        else
+        else //If no match, it adds the user to the database
         {
             $add_query = "INSERT INTO emp_data (fname, lname, phone_number, address, username, ssn) VALUES ('$fname', '$lname', '$phone', '$addr', '$un', '$ssn')";
             echo($add_query);

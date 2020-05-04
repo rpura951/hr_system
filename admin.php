@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-$name = $_SESSION['fname'];
-$greeting = array($name, $_SESSION['isAdmin']);
-
-print json_encode($greeting);
-
 ?>
 
 <!DOCTYPE html>
