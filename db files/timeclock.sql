@@ -25,31 +25,37 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `emp_data`
+-- Table structure for table `timeclock`
 --
 
-DROP TABLE IF EXISTS `emp_data`;
-CREATE TABLE IF NOT EXISTS `emp_data` (
-  `fname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `lname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `phone_number` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+DROP TABLE IF EXISTS `timeclock`;
+CREATE TABLE IF NOT EXISTS `timeclock` (
   `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `ssn` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
-  `isAdmin` tinyint(1) DEFAULT 0,
-  UNIQUE KEY `ssn` (`ssn`),
+  `date` date NOT NULL,
+  `clockin` time NOT NULL,
+  `clockout` time NOT NULL,
+  `lunchout` time NOT NULL,
+  `lunchin` time NOT NULL,
+  `totalworked` float NOT NULL,
   KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `emp_data`
+-- Dumping data for table `timeclock`
 --
 
-INSERT INTO `emp_data` (`fname`, `lname`, `phone_number`, `address`, `username`, `ssn`, `isAdmin`) VALUES
-('Ralph', 'Pura', '9515814298', '123 Fake Adress', 'rpura', '123456789', 1),
-('New', 'User', '0987654321', '432 Somewhere', 'NUser', '444559999', 0),
-('Levi', 'Person', '4567879874', '54684 Riverside Drive', 'LPerson', '549876666', 0),
-('Juan', 'Gay', '9119874561', 'Levis Butthole', 'JGay', '654789123', NULL);
+INSERT INTO `timeclock` (`username`, `date`, `clockin`, `clockout`, `lunchout`, `lunchin`, `totalworked`) VALUES
+('rpura', '2020-05-03', '06:00:00', '10:00:00', '11:00:00', '16:00:00', 0);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `timeclock`
+--
+ALTER TABLE `timeclock`
+  ADD CONSTRAINT `un` FOREIGN KEY (`username`) REFERENCES `emp_data` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

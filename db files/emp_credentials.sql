@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 01, 2020 at 07:34 PM
+-- Generation Time: May 04, 2020 at 11:36 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `emp_credentials`;
 CREATE TABLE IF NOT EXISTS `emp_credentials` (
   `username` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -40,8 +40,10 @@ CREATE TABLE IF NOT EXISTS `emp_credentials` (
 --
 
 INSERT INTO `emp_credentials` (`username`, `password`) VALUES
-('rpura', 'Blue123'),
-('MLi', 'Faclon!16');
+('rpura', '$2y$10$jyIppcnX4nuwMk45LMX5teHOps0CrXL/.yANhy80y/hvJ.rRYq2cO'),
+('JGay', '$2y$10$3y70jNlya3nL6vh1MWWx0O9AHUlbY0iHCxNvM4rnNI0T62F06lVdy'),
+('NUser', '$2y$10$NjARW683GK2EF8/cZ2tFOOjw3ylOHiwvrpf0TuMvpbXASpqyQTUba'),
+('LPerson', '$2y$10$OrKUIhzu2yjj9Y0X52IQ1e0k3CbGO789S7y.lQy.ZPCzBvY/w7OHC');
 
 --
 -- Constraints for dumped tables
