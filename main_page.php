@@ -2,7 +2,7 @@
 session_start();
 
 $name = $_SESSION['fname'];
-$greeting = array('admin', $_SESSION['isAdmin']);
+$greeting = array($name, $_SESSION['isAdmin']);
 
 print json_encode($greeting);
 
@@ -22,7 +22,7 @@ print json_encode($greeting);
         <style>
             th, td
             {
-                padding:5px
+                padding:5px;
             }
         </style>
     </head>
@@ -31,17 +31,13 @@ print json_encode($greeting);
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
-                    <h3>Menu</h3>
                     <ul class="nav nav-sidebar">
+                        <h3>Menu</h3>
                         <hr>
                         <li><a href="#">Clock In/Out</a></li>
                         <li><a href="#">Request Vacation</a></li>
                         <li><a href="#">View Paystub</a></li>
-                    </ul>
-                    <ul class="nav adminMenu">
-                        <h3>Admin Menu</h3>
-                        <hr>
-                        <li><a href="registration_page.php">Register New User</a></li>
+                        <li><a href="logout.php">Log Out</a></li>
                     </ul>
                 </div>
             </div>
