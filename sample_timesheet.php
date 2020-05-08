@@ -54,6 +54,8 @@ try {
             } else if (!isset($un)) {
                 throw new Exception('Username Not Found');
             }
+
+            $time = null;
             // Process the option
             switch($option) {
                 
@@ -65,7 +67,7 @@ try {
                     break;
                 
                 case 'lunchout':
-
+                    
                     break;
 
                 case 'clockout':
@@ -73,11 +75,11 @@ try {
                     break;
             }
             //successful database entry
-            if ($success)
+            if (isset($time))
             {
                 print json_encode([
                     'success' => true,
-                    // 'time' => 'TIME HERE'
+                    'time' => $time
                 ]);
             } 
             else  // Option not found
