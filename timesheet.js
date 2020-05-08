@@ -1,5 +1,11 @@
 //Retrieve Data from 
 var RetrieveData = function() {
+    let username = sessionStorage.getItem('username')
+    if(!username) {
+        window.location.replace('login.php');
+        return;
+    }
+
     $.get('sample_timesheet.php', {
         'username': sessionStorage.getItem('username')
     }, function(result) {

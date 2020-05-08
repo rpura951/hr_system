@@ -57,21 +57,21 @@ try {
 
             $time = null;
             // Process the option
+            require_once 'emp_data_entry.php';
             switch($option) {
-                
                 case 'clockin':
-
+                    $time = data_entry($db, $un, $today, 'start');
                     break;
                 case 'lunchin':
-
+                    $time = data_entry($db, $un, $today, 'lunch_in');
                     break;
                 
                 case 'lunchout':
-                    
+                    $time = data_entry($db, $un, $today, 'lunch_out');
                     break;
 
                 case 'clockout':
-
+                    $time = data_entry($db, $un, $today, 'end');
                     break;
             }
             //successful database entry
