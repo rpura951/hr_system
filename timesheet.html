@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Timesheet</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link href="css/registration.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            th, td
+            {
+                padding:5px
+            }
+            .timesheet
+            {
+                width: 100px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <h3>Menu</h3>
+                        <li><a href="#">Clock In/Out</a></li>
+                        <li><a href="#">Request Vacation</a></li>
+                        <li><a href="registration_page.html">Regsiter New User</a></li>
+                        <li><a href="logout.php">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 id="page-header">Hello</h1>
+            <form method="get" enctype="multipart.form-data">
+                <table style="border: 70px;">
+                    <tr>
+                        <td style="width:100px; text-align:left;">Clock In</td>
+                        <td id="clockin">00:00</td>
+                        <td><button id="clockinButton" class="timesheet" type="submit" name="clockin">Clock In</button></td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px; text-align:left;">Lunch Out</td>
+                        <td id="lunchout">00:00</td>
+                        <td><button id="lunchoutButton" class="timesheet" type="submit" name="lunchout">Lunch Out</button></td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px; text-align:left;">Lunch In</td>
+                        <td id="lunchin">00:00</td>
+                        <td><button id="lunchinButton" class="timesheet" type="submit" name="lunchin">Lunch In</button></td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px; text-align:left;">Clock Out</td>
+                        <td id="clockout">00:00</td>
+                        <td><button id="clockoutButton" class="timesheet" type="submit" name="clockout">Clock Out</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+    <script src="timesheet.js"></script>
+
+</html>

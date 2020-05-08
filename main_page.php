@@ -32,7 +32,7 @@ $name = $_SESSION['fname'];
                     <ul class="nav nav-sidebar">
                         <h3>Menu</h3>
                         <hr>
-                        <li><a href="#">Clock In/Out</a></li>
+                        <li><a href="timesheet.html">Clock In/Out</a></li>
                         <li><a href="#">Request Vacation</a></li>
                         <li><a href="#">View Paystub</a></li>
                         <li><a href="logout.php">Log Out</a></li>
