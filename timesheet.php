@@ -2,33 +2,34 @@
 session_start();
 
 $db = mysqli_connect("localhost", "root", "", "hr_system");
-<<<<<<< HEAD
 $un = $_SESSION['username'];
 $today = date('Y-m-d');
 $chk_date = "SELECT * FROM timesheet WHERE username = '$un' and date = '$today'";
-=======
+$result = mysqli_query($db, $chk_date);;
+$rows = mysqli_num_rows($result);
 
-//Takes username from session for the query
-//$un = $_SESSION['username'];
-
-//Test case for timesheet
-$un = "rpura"; 
-
-//Need to add today's date to query
-$chk_date = "SELECT * FROM timeclock WHERE username = '$un'";
->>>>>>> 18acda7154158957ac6437e767f4208c5cb825cf
-$result = $db->query($chk_date);
-
-//Checks if there are any returns
-if($result->num_rows > 0)
+//Checks if there is an entry already created for that username and date
+if($rows > 0)
 {
-    //Stores data to display on page
-    $result = $result->fetch_assoc();
-    $_SESSION['date'] = $result['date'];
-    $_SESSION['clockin'] = $clockin = $result['clockin'];
-    $_SESSION['lunchout'] = $lunchout = $result['lunchout'];
-    $_SESSION['lunchin'] = $lunchin = $result['lunchin'];
-    $_SESSION['clockout'] = $clockout = $result['clockout'];
+    $result = $db->query($chk_date);
+    $result = $result->fetch_row();
+
+    $_SESSION['date'] = $result[6];
+    $_SESSION['clockin'] = $clockin = $result[0];
+    $_SESSION['lunchout'] = $lunchout = $result[3];
+    $_SESSION['lunchin'] = $lunchin = $result[2];
+    $_SESSION['clockout'] = $clockout = $result[1];
+
+    // $data->date = $result[6];
+    // $data->clockin = $result[0];
+    // $data->lunchout = $result[3];
+    // $data->lunchin = $result[2];
+    // $data->clockout = $result[1];
+
+    print json_encode([
+        'success' => true,
+        'data' => $result
+    ]);
 }
 else //If there isn't a match, it sets all text to ""
 {
@@ -66,20 +67,30 @@ if(isset($_GET['lunchout']))
 
 if(isset($_GET['lunchin']))
 {
-    $lunchin = date('Y-m-d H:i:s');
+    $lunchin = date('H:i:s');
     $add_date = "UPDATE timesheet SET lunch_in = '$lunchin' WHERE username = '$un' AND date = '$today'";
     $db->query($add_date);
 }
 
 if(isset($_GET['clockout']))
 {
-    $clockout = date('Y-m-d H:i:s');
+    $clockout = date('H:i:s');
     $add_date = "UPDATE timesheet SET end = '$clockout' WHERE username = '$un' AND date = '$today'";
     $db->query($add_date);
-    $db->execute();
+
+    $calcQuery = "Set @start = (SELECT start FROM timesheet WHERE username = '$un' AND date = '$today');";
+    $db->query($calcQuery);
+    $calcQuery = "SET @end = (SELECT end FROM timesheet WHERE username = '$un' AND date = '$today');";    
+    $db->query($calcQuery);
+    $calcQuery = "SET @lunchstart = (SELECT lunch_out FROM timesheet WHERE username = '$un' AND date = '$today');";    
+    $db->query($calcQuery);
+    $calcQuery = "SET @lunchend = (SELECT lunch_in FROM timesheet WHERE username = '$un' AND date = '$today');";    
+    $db->query($calcQuery);
+    $calcQuery = "SET @total = TIME_TO_SEC(TIMEDIFF(@end, @start))/3600 - TIME_TO_SEC(TIMEDIFF(@lunchend, @lunchstart))/3600;";
+    $db->query($calcQuery);
+    $calcQuery = "UPDATE timesheet SET total_worked = ROUND(@total,2) WHERE username = '$un' AND date = '$today';";
+    $db->query($calcQuery);
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -133,20 +144,20 @@ if(isset($_GET['clockout']))
                     </tr>
                     <tr>
                         <td style="width100px; text-align:left;">Lunch Out</td>
-                        <td><?php echo $add_date ?></td>
+                        <td><?php echo ($lunchout) ?></td>
                         <td><button class="timesheet" type="submit" name="lunchout">Lunch Out</button></td>
                     </tr>
                     <tr>
                         <td style="width100px; text-align:left;">Lunch In</td>
-                        <td><?php echo $lunchin ?></td>
+                        <td><?php echo ($lunchin) ?></td>
                         <td><button class="timesheet" type="submit" name="lunchin">Lunch In</button></td>
                     </tr>
                     <tr>
                         <td style="width100px; text-align:left;">Clock Out</td>
-                        <td><?php echo $clockout ?></td>
+                        <td><?php echo ($clockout) ?></td>
                         <td><button class="timesheet" type="submit" name="clockout">Clock Out</button></td>
                     </tr>
-                    <?PHP echo $chk_date ?>
+                    <?php echo $calcQuery ?>
                 </table>
             </form>
         </div>
