@@ -1,6 +1,6 @@
 //Retrieve Data from 
 var RetrieveData = function() {
-    $.get('test/test.php', {
+    $.get('sample_timesheet.php', {
         'username': sessionStorage.getItem('username')
     }, function(result) {
         console.log(result);
@@ -52,7 +52,7 @@ $('.timesheet').on('click', function(event) {
     console.log(option);
     console.log(sessionStorage.getItem('username'));
 
-    $.post('test/test.php', {
+    $.post('sample_timesheet.php', {
         'option': option,
         'username': sessionStorage.getItem('username')
     }, function(result) {
