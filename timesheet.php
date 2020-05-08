@@ -2,6 +2,11 @@
 session_start();
 
 $db = mysqli_connect("localhost", "root", "", "hr_system");
+<<<<<<< HEAD
+$un = $_SESSION['username'];
+$today = date('Y-m-d');
+$chk_date = "SELECT * FROM timesheet WHERE username = '$un' and date = '$today'";
+=======
 
 //Takes username from session for the query
 //$un = $_SESSION['username'];
@@ -11,6 +16,7 @@ $un = "rpura";
 
 //Need to add today's date to query
 $chk_date = "SELECT * FROM timeclock WHERE username = '$un'";
+>>>>>>> 18acda7154158957ac6437e767f4208c5cb825cf
 $result = $db->query($chk_date);
 
 //Checks if there are any returns
@@ -30,27 +36,47 @@ else //If there isn't a match, it sets all text to ""
     $lunchout = "";
     $lunchin = "";
     $clockout = "";
+    $add_date = "";
 }
 
 if(isset($_GET['clockin']))
 {
-    $_SESSION['clockIn'] = date('Y-m-d H:i:s');
+    $_SESSION['clockIn'] = date('H:i:s');
     $clockin = $_SESSION['clockIn'];
+    $add_date = "INSERT INTO timesheet (date, start, username, end, lunch_in, lunch_out, total_worked)
+                 VALUES ('$today', '$clockin', '$un', '00:00:00', '00:00:00', '00:00:00', 0)";
+    
+
+    if($db->query($add_date) === TRUE)
+    {
+        echo("It worked");
+    }
+    else
+    {
+        echo("Failed");
+    }
 }
 
 if(isset($_GET['lunchout']))
 {
-    $lunchout = date('Y-m-d H:i:s');
+    $lunchout = date('H:i:s');
+    $add_date = "UPDATE timesheet SET lunch_out = '$lunchout' WHERE username = '$un' AND date = '$today'";
+    $db->query($add_date);
 }
 
 if(isset($_GET['lunchin']))
 {
     $lunchin = date('Y-m-d H:i:s');
+    $add_date = "UPDATE timesheet SET lunch_in = '$lunchin' WHERE username = '$un' AND date = '$today'";
+    $db->query($add_date);
 }
 
 if(isset($_GET['clockout']))
 {
     $clockout = date('Y-m-d H:i:s');
+    $add_date = "UPDATE timesheet SET end = '$clockout' WHERE username = '$un' AND date = '$today'";
+    $db->query($add_date);
+    $db->execute();
 }
 
 
@@ -102,12 +128,12 @@ if(isset($_GET['clockout']))
                 <table style="border: 70px;">
                     <tr>
                         <td style="width100px; text-align:left;">Clock In</td>
-                        <td><?php echo $clockin ?></td>
+                        <td><?php echo($clockin); ?></td>
                         <td><button class="timesheet" type="submit" name="clockin">Clock In</button></td>
                     </tr>
                     <tr>
                         <td style="width100px; text-align:left;">Lunch Out</td>
-                        <td><?php echo $lunchout ?></td>
+                        <td><?php echo $add_date ?></td>
                         <td><button class="timesheet" type="submit" name="lunchout">Lunch Out</button></td>
                     </tr>
                     <tr>
@@ -120,6 +146,7 @@ if(isset($_GET['clockout']))
                         <td><?php echo $clockout ?></td>
                         <td><button class="timesheet" type="submit" name="clockout">Clock Out</button></td>
                     </tr>
+                    <?PHP echo $chk_date ?>
                 </table>
             </form>
         </div>
