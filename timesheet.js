@@ -24,19 +24,21 @@ var RetrieveData = function() {
             $('#lunchout').html(result.data.lunch_out);
             $('#clockout').html(result.data.end);
 
-            let empty = '00:00:00';
-
+            let empty = '00:00:00'; 
+            
             if(result.data.start === empty) {
-                buttonToggle('start');
+                buttonToggle('before');
             } else if (result.data.lunch_in === empty) {
-                buttonToggle('lunchin');
+                buttonToggle('clockin');
             } else if (result.data.lunch_out === empty) {
-                buttonToggle('lunchout');
+                buttonToggle('lunchin');
             } else if (result.data.end === empty) {
-                buttonToggle('end');
+                buttonToggle('lunchout');
             } else {
-                buttonToggle('over');
+                buttonToggle('clockout');
             }
+            //clockout w/o lunching in 
+            if(result.data.end !== empty) { buttonToggle('over'); }
         } else {
             alert('fresh');
         }
@@ -70,9 +72,6 @@ $('.timesheet').on('click', function(event) {
             buttonToggle(option);
         }
     });
-    // let date = new Date();
-    // $('#'+ option).html(date);
-    // buttonToggle(option);
 });
 
 
@@ -84,19 +83,19 @@ var buttonToggle = function(option) {
 
     console.log(option);
     switch(option) {
-        case 'start':
+        case 'before':
             options.splice(1, 3);
             break;
-        case 'lunchin':
+        case 'clockin':
             options = [ options[0], options[2] ];
             break;
-        case 'lunchout':
-            options = [ options[2] ];
+        case 'lunchin':
+            options.splice(2, 1);
             break;
-        case 'end':
+        case 'lunchout':
             options.splice(3, 1);
             break;
-        case 'over':
+        case 'clockout':
             break;
     }
 

@@ -7,7 +7,7 @@ function data_entry($db, $un, $today, $option) {
         //new data table entry 
         $new_entry = "INSERT INTO timesheet (date, start, username, end, lunch_in, lunch_out, total_worked)
                       VALUES ('$today', '$time', '$un', '00:00:00', '00:00:00', '00:00:00', 0)";
-        $db->query($update_entry);
+        $db->query($new_entry);
 
     }
     else {

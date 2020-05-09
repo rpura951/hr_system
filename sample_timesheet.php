@@ -15,7 +15,7 @@ if (mysqli_connect_errno()) {
 }
 
 try {
-    $today = date('Y-m-d');
+    
     // Checks if there's a server request and if it's GET OR POST 
     $action = isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'get' : 'post';
     // Process Server requests
@@ -27,6 +27,7 @@ try {
                 throw new Exception('Username Not Found');
                 exit;
             }
+            $today = date('Y-m-d');
             $chk_date = "SELECT * FROM timesheet WHERE username='$un' and date='$today' ";
             $result = $db->query($chk_date);
             if($result->num_rows > 0) 
@@ -58,6 +59,7 @@ try {
             $time = null;
             // Process the option
             require_once 'emp_data_entry.php';
+            $today = date('Y-m-d');
             switch($option) {
                 case 'clockin':
                     $time = data_entry($db, $un, $today, 'start');
@@ -79,7 +81,7 @@ try {
             {
                 print json_encode([
                     'success' => true,
-                    'time' => $time
+                    'time' => $time,
                 ]);
             } 
             else  // Option not found

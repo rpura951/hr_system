@@ -1,8 +1,3 @@
-<?php
-session_start();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -44,9 +39,8 @@ session_start();
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header"> <?php echo "Hello, ".$name ?> </h1>
+            <h1 class="page-header">Hello, <span id='fname'></span></h1>
         </div>
-        <script src="//code.jquery.com/jquery-2.2.3.min.js"></script>
-        <script src="admin.js"></script>
     </body>
+    <script src="admin.js"></script>
 </html>

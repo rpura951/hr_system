@@ -1,11 +1,16 @@
 <?php
 session_start();
+ob_start();
+header('Content-Type: application/json');
 
-$db = mysqli_connect("localhost", "root", "", "hr_system");
+try {
+    if(!isset($_POST['emp_id']) or !isset($_POST['pwd']))
+        throw new Exception('Empty Username or Password');
 
-//Checks if login is clicked.
-if(isset($_POST['verify']))
-{
+    $db = mysqli_connect("localhost", "root", "", "hr_system");
+    if (mysqli_connect_errno())
+        throw new Exception('Could not connect to database');
+        
     $username = $_POST['emp_id'];
     $password = $_POST['pwd'];
     $query = "SELECT username, password FROM emp_credentials WHERE username = '$username'";
@@ -21,103 +26,23 @@ if(isset($_POST['verify']))
             $result = $db->query($query);
             $result = $result->fetch_assoc();
 
-            //Stores data from query to session
-            $_SESSION['fname'] = $result['fname'];
-            $_SESSION['isAdmin'] = $result['isAdmin'];
-            $_SESSION['username'] = $result['username'];
-
-            //Checks if user is admin.
-            if($_SESSION['isAdmin'] == 1)
-            {
-                header("Location: admin.php");
-            }
-            else
-            {
-                header("Location: http://localhost/hr_system/main_page.php");
-            }
-
-            //Test code to check alerts. Ignore.
-            //echo($_SESSION['fname']);
-            // echo('<script language="javascript">');
-            // echo('alert("Login Successful");
-            // window.location.href="http://localhost/hr_system/main_page.html"');
-            // echo('</script>');
+            print json_encode([
+                'success' => true,
+                'username' => $result['username'],
+                'fname' => $result['fname'],
+                'isAdmin' => $result['isAdmin']
+            ]);
+            exit;
         }
+        throw new Exception('Incorrect Password');
     }
-    else
-    {
-        echo('<script language="javascript">');
-        echo('alert("Login Failed. Please Try Again.");
-        window.location.href="http://localhost/hr_system/login.html"');
-        echo('</script>');
-    }
+    throw new Exception("Username Not Found: {$username}");
+
+} catch(Exception $e) {
+    print json_encode([
+        'success' => false,
+        'error' => $e->getMessage()
+    ]);
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Login</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    </head>
-    <style>
-        .center-form
-        {
-            background-color:rgb(255, 255, 255);
-            width:300px;
-            border:2px black;
-            padding:50px;
-            margin-left: auto;
-            margin-right:auto;
-        }
-        h1
-        {
-            text-align: center;
-        }
-        body
-        {
-            text-align: center;
-            background-color:paleturquoise;
-        }
-        .login
-        {
-            /* text-align: center; */
-        }
-        input[type=text], [type=submit], [type=password]
-        {
-            margin-left: auto;
-            margin-right:auto;
-            margin-top:10px;
-            margin-bottom:10px;
-        }
-    </style>
-    <body>
-        <div class="container-fluid">
-            <h1>THE BEST LOGO EVER</h1>    
-        </div>
-        <div class="container-fluid">
-            <div class="center-form">
-                <form method="post" enctype="multipart/form-data">
-                    <table>
-                        <tr>
-                            <td style="width: 100px; text-align: left;">Username</td>
-                            <td><input type="text" name="emp_id" required size="20" maxlength="20" /></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 100px; text-align: left;">Password</td>
-                            <td><input type="password" name="pwd" required size="20" maxlength="20" /></td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                    </table>
-                    <button name="verify" type="submit">Submit</button>
-                </form>
-            </div>
-        </div>
-    </body>
-</html>
-
