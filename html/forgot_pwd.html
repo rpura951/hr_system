@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Password Reset</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+        .center-form
+        {
+            background-color:rgb(255, 255, 255);
+            width:300px;
+            border:2px black;
+            padding:50px;
+            margin-left: auto;
+            margin-right:auto;
+        }
+        h1
+        {
+            text-align: center;
+        }
+        body
+        {
+            text-align: center;
+            background-color:paleturquoise;
+        }
+        input[type=text], [type=submit], [type=password]
+        {
+            margin-left: auto;
+            margin-right:auto;
+            margin-top:10px;
+            margin-bottom:10px;
+        }
+    </style>
+    <body>
+        <div class="container-fluid">
+            <h1>Reset Password</h1>    
+        </div>
+        <div class="container-fluid">
+            <div class="center-form">
+                <form method="post" enctype="multipart/form-data">
+                    <table>
+                        <tr>
+                            <td colspan="2" style="width: 100px; text-align:center;">Verification</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px; text-align: left;">Username</td>
+                            <td><input id="emp_id" type="text" name="emp_id" maxlength="20" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px; text-align: left;">E-mail</td>
+                            <td><input id="email" type="text" name="email" maxlength="20" /></td>
+                        </tr>
+                    </table>
+                    <button id="reset" name="reset" type="submit" formaction="http://localhost/hr_system/php/forgot_pwd.php">Submit</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
+
