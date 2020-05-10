@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 04, 2020 at 11:36 PM
+-- Generation Time: May 07, 2020 at 09:11 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -40,10 +40,9 @@ CREATE TABLE IF NOT EXISTS `emp_credentials` (
 --
 
 INSERT INTO `emp_credentials` (`username`, `password`) VALUES
-('rpura', '$2y$10$jyIppcnX4nuwMk45LMX5teHOps0CrXL/.yANhy80y/hvJ.rRYq2cO'),
-('JGay', '$2y$10$3y70jNlya3nL6vh1MWWx0O9AHUlbY0iHCxNvM4rnNI0T62F06lVdy'),
-('NUser', '$2y$10$NjARW683GK2EF8/cZ2tFOOjw3ylOHiwvrpf0TuMvpbXASpqyQTUba'),
-('LPerson', '$2y$10$OrKUIhzu2yjj9Y0X52IQ1e0k3CbGO789S7y.lQy.ZPCzBvY/w7OHC');
+('rpura', '$2y$10$Ng8MESXPQUpuSp8GVbsfEOnmbcYJbJv57dDWJN48OVqNxGrJvS4U2'),
+('MLi', '$2y$10$4ctEPYe/hybEx5WxD4ScL.Qv7xarMyWIhNjoyYfASvSTnLlF1NDUy'),
+('FUser', '$2y$10$LULrIa1V9UJFL436CWbzQOOyaURDrE3jXyfpYz.kqkbqIzNEVaVgq');
 
 --
 -- Constraints for dumped tables

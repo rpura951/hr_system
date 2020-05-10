@@ -1,9 +1,9 @@
 
-(() => {
+(async () => {
     let fname = sessionStorage.getItem('fname');
     $('#page-header').html('Hello, ' + fname);
 
-    await $.post('view_paystub.php', {
+    await $.post('http://localhost/hr_system/php/view_paystub.php', {
         username: sessionStorage.getItem('username'),
     }, function(result) {
         console.log(result); 

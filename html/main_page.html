@@ -4,19 +4,15 @@
         <meta charset="utf-8">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Paystub</title>
+        <title>Main Menu</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link href="css/registration.css" rel="stylesheet">
+        <link href="http://localhost/hr_system/css/registration.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
             th, td
             {
-                padding:5px
-            }
-            .timesheet
-            {
-                width: 100px;
+                padding:5px;
             }
         </style>
     </head>
@@ -27,29 +23,19 @@
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <h3>Menu</h3>
-                        <li><a href="timesheet.html">Clock In/Out</a></li>
-                        <li><a href="view_paystub.html">View Paystub</a></li>
-                        <li><a href="logout.php">Log Out</a></li>
+                        <hr>
+                        <li><a href="http://localhost/hr_system/html/timesheet.html">Clock In/Out</a></li>
+                        <li><a href="http://localhost/hr_system/view_paystub.html">View Paystub</a></li>
+                        <li><button id="logout" class="btn btn-danger">Logout</button></li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 id="page-header">Paystub</h1>
-            <form method="post" enctype="multipart.form-data">
-                <table style="border: 70px;">
-                    <tr>
-                        <td style="width:100px; text-align:left;">View Recent Paystub</td>
-                        <td><button type="submit" name="paystub">View Paystub</button></td>
-                    </tr>
-                    <tr>
-                        <td id="total_pay">Pay Here</td>
-                    </tr>
-                </table>
-            </form>
+            <h1 class="page-header">Hello, <span id="fname"></span> </h1>
         </div>
     </body>
-    <script src="view_paystub.js"></script>
-
+    <script src="http://localhost/hr_system/js/main_page.js"></script>
+    <script src="http://localhost/hr_system/js/logout.js"></script>
 </html>

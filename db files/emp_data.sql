@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 04, 2020 at 11:36 PM
+-- Generation Time: May 07, 2020 at 09:11 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -46,10 +46,9 @@ CREATE TABLE IF NOT EXISTS `emp_data` (
 --
 
 INSERT INTO `emp_data` (`fname`, `lname`, `phone_number`, `address`, `username`, `ssn`, `isAdmin`) VALUES
-('Ralph', 'Pura', '9515814298', '123 Fake Adress', 'rpura', '123456789', 1),
-('New', 'User', '0987654321', '432 Somewhere', 'NUser', '444559999', 0),
-('Levi', 'Person', '4567879874', '54684 Riverside Drive', 'LPerson', '549876666', 0),
-('Juan', 'Gay', '9119874561', 'Levis Butthole', 'JGay', '654789123', NULL);
+('Ralph', 'Pura', '1234567890', '123 Fake Street', 'rpura', '111223333', 1),
+('Fake', 'User', '', 'Fake Address', 'FUser', '654789123', 0),
+('Michael', 'Li', '2223334444', 'IDK Your Address', 'MLi', '987987987', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
