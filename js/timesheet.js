@@ -10,45 +10,51 @@
     $('#page-header').html('Hello, ' + fname);
 
     //checks database
-    await $.get('http://localhost/hr_system/php/timesheet.php', {
+    try{
+        await $.get('http://localhost/hr_system/php/timesheet.php', {
         'username': sessionStorage.getItem('username')
-    }, function(result) {
-        console.log(result);
-        if(!result.success) {
-            if(result.error){
-                alert(result.message);
-            } else {
-                alert('No Data Entry for current day');
+        }, function(result) {
+            console.log(result);
+            if(!result.success) {
+                if(result.error){
+                    alert(result.message);
+                } else {
+                    alert('No Data Entry for current day');
+                }
+                return;
             }
-            return;
-        }
-        if(result.data) {
-            $('#clockin').html(result.data.start);
-            $('#lunchin').html(result.data.lunch_in);
-            $('#lunchout').html(result.data.lunch_out);
-            $('#clockout').html(result.data.end);
+            if(result.data) {
+                $('#clockin').html(result.data.start);
+                $('#lunchin').html(result.data.lunch_in);
+                $('#lunchout').html(result.data.lunch_out);
+                $('#clockout').html(result.data.end);
 
-            let empty = '00:00:00'; 
-            
-            if(result.data.start === empty) {
-                buttonToggle('before');
-            } else if (result.data.lunch_in === empty) {
-                buttonToggle('clockin');
-            } else if (result.data.lunch_out === empty) {
-                buttonToggle('lunchin');
-            } else if (result.data.end === empty) {
-                buttonToggle('lunchout');
+                let empty = '00:00:00'; 
+                
+                if(result.data.start === empty) {
+                    buttonToggle('before');
+                } else if (result.data.lunch_in === empty) {
+                    buttonToggle('clockin');
+                } else if (result.data.lunch_out === empty) {
+                    buttonToggle('lunchin');
+                } else if (result.data.end === empty) {
+                    buttonToggle('lunchout');
+                } else {
+                    buttonToggle('clockout');
+                }
+                //clockout w/o lunching in 
+                if(result.data.end !== empty) { buttonToggle('over'); }
             } else {
-                buttonToggle('clockout');
+                alert('fresh');
             }
-            //clockout w/o lunching in 
-            if(result.data.end !== empty) { buttonToggle('over'); }
-        } else {
-            alert('fresh');
-        }
 
         
     });
+    } catch (error)
+    {
+        console.error(error);
+    }
+    
 }) ()
 
 $('.timesheet').on('click', async function(event) {
