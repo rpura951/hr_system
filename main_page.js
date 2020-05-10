@@ -1,4 +1,4 @@
-$(document).ready(function() {
+(() => {
     let username = sessionStorage.getItem('username');
     if(username === null)
         window.location.replace('login.html');
@@ -9,4 +9,4 @@ $(document).ready(function() {
 
     let fname = sessionStorage.getItem('fname');
     $('#fname').html(fname);
-});
+}) ()

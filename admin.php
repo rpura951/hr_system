@@ -27,7 +27,7 @@
                         <li><a href="timesheet.php">Clock In/Out</a></li>
                         <li><a href="#">Request Vacation</a></li>
                         <li><a href="#">View Paystub</a></li>
-                        <li><a href="logout.php">Log Out</a></li>
+                        <li><button id="logout" class="btn btn-danger">Logout</button></li>
                     </ul>
                     <ul class="nav adminMenu">
                         <h3>Admin Menu</h3>
@@ -43,4 +43,5 @@
         </div>
     </body>
     <script src="admin.js"></script>
+    <script src="logout.js"></script>
 </html>

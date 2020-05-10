@@ -1,12 +1,16 @@
-//Retrieve Data from 
-var RetrieveData = function() {
+(async () => {
+    //check if there's user is logged in.
     let username = sessionStorage.getItem('username')
     if(!username) {
-        window.location.replace('login.php');
+        window.location.replace('login.html');
         return;
     }
+    //Loads First Name into Page
+    let fname = sessionStorage.getItem('fname');
+    $('#page-header').html('Hello, ' + fname);
 
-    $.get('sample_timesheet.php', {
+    //checks database
+    await $.get('sample_timesheet.php', {
         'username': sessionStorage.getItem('username')
     }, function(result) {
         console.log(result);
@@ -45,22 +49,15 @@ var RetrieveData = function() {
 
         
     });
-}
+}) ()
 
-$(document).ready(function() {
-    let fname = sessionStorage.getItem('fname');
-    $('#page-header').html('Hello, ' + fname);
-
-    RetrieveData();
-});
-
-$('.timesheet').on('click', function(event) {
+$('.timesheet').on('click', async function(event) {
     event.preventDefault();
     let option = $(this).attr('name');
     console.log(option);
     console.log(sessionStorage.getItem('username'));
 
-    $.post('sample_timesheet.php', {
+    await $.post('sample_timesheet.php', {
         'option': option,
         'username': sessionStorage.getItem('username')
     }, function(result) {
