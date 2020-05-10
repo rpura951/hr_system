@@ -74,37 +74,40 @@
         //Query to check if a username already matches
         $check_query = "SELECT username FROM emp_credentials WHERE username = '$un'";
         $result = mysqli_query($db, $check_query);
-        if(mysqli_num_rows($result) > 0)
-        {
-            echo("Username already found");
-            header("Location: http://localhost/hr_system/registration.php");
-            exit();
-        }
-        else //If no match, it adds the user to the database
-        {
-            $add_query = "INSERT INTO emp_data (fname, lname, phone_number, address, username, ssn, email) VALUES ('$fname', '$lname', '$phone', '$addr', '$un', '$ssn', '$email')";
-            echo($add_query);
-            echo("</br>");
-            if(!mysqli_query($db, $add_query))
-            {
-                throw new Exception("Could not add users to database.");
-            }
-            else
-            {
-                echo("User added to emp_data table</br>");
-            }
-            $add_query = "INSERT INTO emp_credentials (username, password) VALUES ('$un', '$pw')";
-            if(!mysqli_query($db, $add_query))
-            {
-                throw new Exception("Username and password not created</br>");
 
-            }
-            else
+        try{
+            if(mysqli_num_rows($result) > 0)
             {
-                header("Location: http://localhost/hr_system/main_page.php");
-                exit();
+                throw new Exception("Username already found");
             }
+            else //If no match, it adds the user to the database
+            {
+                $add_query = "INSERT INTO emp_data (fname, lname, phone_number, address, username, ssn, email) VALUES ('$fname', '$lname', '$phone', '$addr', '$un', '$ssn', '$email')";
+                if(!mysqli_query($db, $add_query))
+                {
+                    throw new Exception("Could not add users to database.");
+                }
+                else
+                {
+                    echo("User added to emp_data table</br>");
+                }
+                $add_query = "INSERT INTO emp_credentials (username, password) VALUES ('$un', '$pw')";
+                if(!mysqli_query($db, $add_query))
+                {
+                    throw new Exception("Username and password not created</br>");
+    
+                }
+                else
+                {
+                    header("Location: http://localhost/hr_system/main_page.php");
+                    exit();
+                }
+            }
+        } catch Exception($e){
+            $e->getMessage();
+            header("Location: http://localhost/hr_system/registration.php");
         }
+       
     }
 ?>
 
